@@ -1,0 +1,9 @@
+C:\Users\KHAC DUONG\source\repos\DBMSCuoiKi\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.csproj.AssemblyReference.cache
+C:\Users\KHAC DUONG\source\repos\DBMSCuoiKi\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.frmDangNhap.resources
+C:\Users\KHAC DUONG\source\repos\DBMSCuoiKi\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.frmNhanVien.resources
+C:\Users\KHAC DUONG\source\repos\DBMSCuoiKi\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.Properties.Resources.resources
+C:\Users\KHAC DUONG\source\repos\DBMSCuoiKi\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.csproj.GenerateResource.cache
+C:\Users\KHAC DUONG\source\repos\DBMSCuoiKi\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\KHAC DUONG\source\repos\DBMSCuoiKi\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.AssemblyInfoInputs.cache
+C:\Users\KHAC DUONG\source\repos\DBMSCuoiKi\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.AssemblyInfo.cs
+C:\Users\KHAC DUONG\source\repos\DBMSCuoiKi\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.csproj.CoreCompileInputs.cache
