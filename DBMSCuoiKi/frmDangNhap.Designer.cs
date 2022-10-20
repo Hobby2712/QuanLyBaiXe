@@ -31,13 +31,13 @@
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rdoQuanLy = new System.Windows.Forms.RadioButton();
-            this.rdoNhanVien = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.chkShowPass = new System.Windows.Forms.CheckBox();
-            this.txtTaiKhoan = new System.Windows.Forms.TextBox();
             this.txtMatKhau = new System.Windows.Forms.TextBox();
+            this.txtTaiKhoan = new System.Windows.Forms.TextBox();
+            this.chkShowPass = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.rdoNhanVien = new System.Windows.Forms.RadioButton();
+            this.rdoQuanLy = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,6 +50,7 @@
             this.btnLogin.TabIndex = 0;
             this.btnLogin.Text = "Đăng nhập";
             this.btnLogin.UseVisualStyleBackColor = false;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // btnExit
             // 
@@ -82,39 +83,31 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin đăng nhập";
             // 
-            // rdoQuanLy
+            // txtMatKhau
             // 
-            this.rdoQuanLy.AutoSize = true;
-            this.rdoQuanLy.Font = new System.Drawing.Font("Times New Roman", 10.89076F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rdoQuanLy.Location = new System.Drawing.Point(441, 42);
-            this.rdoQuanLy.Name = "rdoQuanLy";
-            this.rdoQuanLy.Size = new System.Drawing.Size(84, 24);
-            this.rdoQuanLy.TabIndex = 2;
-            this.rdoQuanLy.TabStop = true;
-            this.rdoQuanLy.Text = "Quản lý";
-            this.rdoQuanLy.UseVisualStyleBackColor = true;
+            this.txtMatKhau.Location = new System.Drawing.Point(246, 137);
+            this.txtMatKhau.Name = "txtMatKhau";
+            this.txtMatKhau.PasswordChar = '*';
+            this.txtMatKhau.Size = new System.Drawing.Size(298, 32);
+            this.txtMatKhau.TabIndex = 8;
             // 
-            // rdoNhanVien
+            // txtTaiKhoan
             // 
-            this.rdoNhanVien.AutoSize = true;
-            this.rdoNhanVien.Font = new System.Drawing.Font("Times New Roman", 10.89076F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rdoNhanVien.Location = new System.Drawing.Point(246, 42);
-            this.rdoNhanVien.Name = "rdoNhanVien";
-            this.rdoNhanVien.Size = new System.Drawing.Size(101, 24);
-            this.rdoNhanVien.TabIndex = 3;
-            this.rdoNhanVien.TabStop = true;
-            this.rdoNhanVien.Text = "Nhân viên";
-            this.rdoNhanVien.UseVisualStyleBackColor = true;
+            this.txtTaiKhoan.Location = new System.Drawing.Point(246, 86);
+            this.txtTaiKhoan.Name = "txtTaiKhoan";
+            this.txtTaiKhoan.Size = new System.Drawing.Size(298, 32);
+            this.txtTaiKhoan.TabIndex = 7;
             // 
-            // label1
+            // chkShowPass
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(76, 86);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(125, 21);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Tên đăng nhập:";
+            this.chkShowPass.AutoSize = true;
+            this.chkShowPass.Location = new System.Drawing.Point(246, 183);
+            this.chkShowPass.Name = "chkShowPass";
+            this.chkShowPass.Size = new System.Drawing.Size(189, 29);
+            this.chkShowPass.TabIndex = 6;
+            this.chkShowPass.Text = "Hiển thị mật khẩu";
+            this.chkShowPass.UseVisualStyleBackColor = true;
+            this.chkShowPass.CheckedChanged += new System.EventHandler(this.chkShowPass_CheckedChanged);
             // 
             // label2
             // 
@@ -126,29 +119,39 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Mật khẩu:";
             // 
-            // chkShowPass
+            // label1
             // 
-            this.chkShowPass.AutoSize = true;
-            this.chkShowPass.Location = new System.Drawing.Point(246, 183);
-            this.chkShowPass.Name = "chkShowPass";
-            this.chkShowPass.Size = new System.Drawing.Size(189, 29);
-            this.chkShowPass.TabIndex = 6;
-            this.chkShowPass.Text = "Hiển thị mật khẩu";
-            this.chkShowPass.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(76, 86);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(125, 21);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Tên đăng nhập:";
             // 
-            // txtTaiKhoan
+            // rdoNhanVien
             // 
-            this.txtTaiKhoan.Location = new System.Drawing.Point(246, 86);
-            this.txtTaiKhoan.Name = "txtTaiKhoan";
-            this.txtTaiKhoan.Size = new System.Drawing.Size(298, 32);
-            this.txtTaiKhoan.TabIndex = 7;
+            this.rdoNhanVien.AutoSize = true;
+            this.rdoNhanVien.Font = new System.Drawing.Font("Times New Roman", 10.89076F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rdoNhanVien.Location = new System.Drawing.Point(246, 42);
+            this.rdoNhanVien.Name = "rdoNhanVien";
+            this.rdoNhanVien.Size = new System.Drawing.Size(102, 25);
+            this.rdoNhanVien.TabIndex = 3;
+            this.rdoNhanVien.TabStop = true;
+            this.rdoNhanVien.Text = "Nhân viên";
+            this.rdoNhanVien.UseVisualStyleBackColor = true;
             // 
-            // txtMatKhau
+            // rdoQuanLy
             // 
-            this.txtMatKhau.Location = new System.Drawing.Point(246, 137);
-            this.txtMatKhau.Name = "txtMatKhau";
-            this.txtMatKhau.Size = new System.Drawing.Size(298, 32);
-            this.txtMatKhau.TabIndex = 8;
+            this.rdoQuanLy.AutoSize = true;
+            this.rdoQuanLy.Font = new System.Drawing.Font("Times New Roman", 10.89076F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rdoQuanLy.Location = new System.Drawing.Point(441, 42);
+            this.rdoQuanLy.Name = "rdoQuanLy";
+            this.rdoQuanLy.Size = new System.Drawing.Size(86, 25);
+            this.rdoQuanLy.TabIndex = 2;
+            this.rdoQuanLy.TabStop = true;
+            this.rdoQuanLy.Text = "Quản lý";
+            this.rdoQuanLy.UseVisualStyleBackColor = true;
             // 
             // frmDangNhap
             // 

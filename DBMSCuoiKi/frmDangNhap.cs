@@ -1,7 +1,14 @@
-﻿namespace DBMSCuoiKi
+﻿using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace DBMSCuoiKi
 {
     public partial class frmDangNhap : Form
     {
+        SqlConnection conn;
+        string connStr = "Data Source=(local)" + ";Initial Catalog=QLBaiXe" + ";Integrated Security=True";
         public frmDangNhap()
         {
             InitializeComponent();
@@ -15,19 +22,8 @@
                 Application.Exit();
         }
 
-        private void chkShowPass_Click(object sender, EventArgs e)
-        {
-            if (chkShowPass.Checked)
-            {
-                txtMatKhau.PasswordChar = (char)0;
-            }
-            else
-            {
-                txtMatKhau.PasswordChar = '*';
-            }
-        }
 
-        private void btn_DangNhap_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
             if (txtTaiKhoan.Text.Trim().Length.Equals(0))
             {
@@ -41,36 +37,80 @@
             }
             else
             {
-                string a;
+                int a;
                 if (rdoQuanLy.Checked == true)
                 {
-                    a = "Admin";
+                    a = 2;
                 }
-                else a = "User";
-                TaiKhoan check = db.TaiKhoans.SingleOrDefault(n => n.TK.Equals(txt_TaiKhoan.Text.Trim()) && n.MK.Equals(txt_MatKhau.Text.Trim()) && n.Quyen.Equals(a));
-                if (check == null)
+                else a = 1;
+                SqlConnection conn = new SqlConnection();
+                try
                 {
-                    MessageBox.Show("Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                }
-                else
-                {
-                    if (rdoNhanVien.Checked == true)
+                    conn = new SqlConnection(connStr);
+                    if (conn.State == ConnectionState.Open)
+                        conn.Close();
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_login";
+                    cmd.Parameters.AddWithValue("@UserName", txtTaiKhoan.Text);
+                    cmd.Parameters.AddWithValue("@Password", txtMatKhau.Text);
+                    cmd.Parameters.AddWithValue("@ChkQuyen", a);
+                    cmd.Connection = conn;
+                    object kq = cmd.ExecuteScalar();
+                    int code = Convert.ToInt32(kq);
+                    if (code == 0)
                     {
-                        //Model.maTT = check.MaTT;
-                        MessageBox.Show("Đăng nhập thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Chào mừng Admin đăng nhập", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Hide();
-                        frm_Main frmNV = new frm_Main();
-                        frmTT.ShowDialog();
-                    }
-                    if (rdoQuanLy.Checked == true)
-                    {
-                        MessageBox.Show("Đăng nhập thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Hide();
-                        frm_QuanLy frmQL = new frm_QuanLy();
+                        frmQuanLy frmQL = new frmQuanLy();
                         frmQL.ShowDialog();
 
                     }
+                    else if (code == 1)
+                    {
+                        MessageBox.Show("Đăng nhập thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Hide();
+                        frmHome frmNV = new frmHome();
+                        frmNV.ShowDialog();
+                    }
+                    else if (code == 2)
+                    {
+                        MessageBox.Show("Tài khoản hoặc mật khẩu không đúng !!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtMatKhau.Text = "";
+                        txtTaiKhoan.Text = "";
+                        txtTaiKhoan.Focus();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Tài khoản không tồn tại !!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtMatKhau.Text = "";
+                        txtTaiKhoan.Text = "";
+                        txtTaiKhoan.Focus();
+                    }
+                    conn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
                 }
             }
         }
+
+        private void chkShowPass_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkShowPass.Checked)
+            {
+                txtMatKhau.PasswordChar = (char)0;
+            }
+            else
+            {
+                txtMatKhau.PasswordChar = '*';
+            }
+        }
+    }
 }
