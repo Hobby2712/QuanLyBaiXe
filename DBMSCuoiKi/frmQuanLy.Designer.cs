@@ -32,6 +32,7 @@
             this.btnNV = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnBaiXe = new System.Windows.Forms.Button();
             this.pnlQuanLy = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
@@ -82,21 +83,35 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "QUẢN LÝ NHÂN VIÊN";
             // 
+            // btnBaiXe
+            // 
+            this.btnBaiXe.BackColor = System.Drawing.Color.White;
+            this.btnBaiXe.FlatAppearance.BorderSize = 0;
+            this.btnBaiXe.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnBaiXe.Location = new System.Drawing.Point(32, 306);
+            this.btnBaiXe.Name = "btnBaiXe";
+            this.btnBaiXe.Size = new System.Drawing.Size(112, 64);
+            this.btnBaiXe.TabIndex = 5;
+            this.btnBaiXe.Text = "Bãi Xe";
+            this.btnBaiXe.UseVisualStyleBackColor = false;
+            this.btnBaiXe.Click += new System.EventHandler(this.btnBaiXe_Click);
+            // 
             // pnlQuanLy
             // 
             this.pnlQuanLy.BackColor = System.Drawing.Color.SkyBlue;
             this.pnlQuanLy.Location = new System.Drawing.Point(142, 88);
             this.pnlQuanLy.Name = "pnlQuanLy";
             this.pnlQuanLy.Size = new System.Drawing.Size(1171, 622);
-            this.pnlQuanLy.TabIndex = 4;
+            this.pnlQuanLy.TabIndex = 6;
             // 
             // frmQuanLy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
-            this.ClientSize = new System.Drawing.Size(1334, 716);
+            this.ClientSize = new System.Drawing.Size(1330, 716);
             this.Controls.Add(this.pnlQuanLy);
+            this.Controls.Add(this.btnBaiXe);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.btnNV);
@@ -114,6 +129,7 @@
         private Button btnNV;
         private Button btnLogOut;
         private Label label1;
+        private Button btnBaiXe;
         private Panel pnlQuanLy;
     }
 }

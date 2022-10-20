@@ -26,6 +26,7 @@ namespace DBMSCuoiKi
             frm.Show();
             btnTK.BackColor = Color.LemonChiffon;
             btnNV.BackColor = Color.White;
+            btnBaiXe.BackColor = Color.White;
         }
 
         private void btnNV_Click(object sender, EventArgs e)
@@ -37,6 +38,19 @@ namespace DBMSCuoiKi
             frm.Show();
             btnNV.BackColor = Color.LemonChiffon;
             btnTK.BackColor = Color.White;
+            btnBaiXe.BackColor = Color.White;
+        }
+
+        private void btnBaiXe_Click(object sender, EventArgs e)
+        {
+            frmBaiXe frm = new frmBaiXe() { TopLevel = false, TopMost = true };
+            pnlQuanLy.Controls.Clear();
+            Refresh();
+            pnlQuanLy.Controls.Add(frm);
+            frm.Show();
+            btnNV.BackColor = Color.White;
+            btnTK.BackColor = Color.White;
+            btnBaiXe.BackColor = Color.LemonChiffon;
         }
     }
 }
