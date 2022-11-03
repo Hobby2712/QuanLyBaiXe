@@ -27,3 +27,33 @@ C:\Users\KHAC DUONG\source\repos\DBMSCuoiKi\DBMSCuoiKi\obj\Debug\net6.0-windows\
 C:\Users\KHAC DUONG\source\repos\DBMSCuoiKi\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.pdb
 C:\Users\KHAC DUONG\source\repos\DBMSCuoiKi\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.genruntimeconfig.cache
 C:\Users\KHAC DUONG\source\repos\DBMSCuoiKi\DBMSCuoiKi\obj\Debug\net6.0-windows\ref\DBMSCuoiKi.dll
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.csproj.AssemblyReference.cache
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.frmBaiXe.resources
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.frmDangNhap.resources
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.frmHome.resources
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.frmNhanVien.resources
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.frmQuanLy.resources
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.frmTaiKhoan.resources
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.Properties.Resources.resources
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.csproj.GenerateResource.cache
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.GeneratedMSBuildEditorConfig.editorconfig
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.AssemblyInfoInputs.cache
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.AssemblyInfo.cs
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.csproj.CoreCompileInputs.cache
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.dll
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\refint\DBMSCuoiKi.dll
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.pdb
+F:\QuanLyBaiXe\DBMSCuoiKi\bin\Debug\net6.0-windows\DBMSCuoiKi.exe
+F:\QuanLyBaiXe\DBMSCuoiKi\bin\Debug\net6.0-windows\DBMSCuoiKi.deps.json
+F:\QuanLyBaiXe\DBMSCuoiKi\bin\Debug\net6.0-windows\DBMSCuoiKi.runtimeconfig.json
+F:\QuanLyBaiXe\DBMSCuoiKi\bin\Debug\net6.0-windows\DBMSCuoiKi.dll
+F:\QuanLyBaiXe\DBMSCuoiKi\bin\Debug\net6.0-windows\DBMSCuoiKi.pdb
+F:\QuanLyBaiXe\DBMSCuoiKi\bin\Debug\net6.0-windows\System.Data.SqlClient.dll
+F:\QuanLyBaiXe\DBMSCuoiKi\bin\Debug\net6.0-windows\runtimes\win-arm64\native\sni.dll
+F:\QuanLyBaiXe\DBMSCuoiKi\bin\Debug\net6.0-windows\runtimes\win-x64\native\sni.dll
+F:\QuanLyBaiXe\DBMSCuoiKi\bin\Debug\net6.0-windows\runtimes\win-x86\native\sni.dll
+F:\QuanLyBaiXe\DBMSCuoiKi\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+F:\QuanLyBaiXe\DBMSCuoiKi\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.csproj.CopyComplete
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\DBMSCuoiKi.genruntimeconfig.cache
+F:\QuanLyBaiXe\DBMSCuoiKi\obj\Debug\net6.0-windows\ref\DBMSCuoiKi.dll
