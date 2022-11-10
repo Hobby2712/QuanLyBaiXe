@@ -30,6 +30,7 @@ namespace DBMSCuoiKi
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label label4;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTaiKhoan));
             this.label1 = new System.Windows.Forms.Label();
@@ -255,23 +256,18 @@ namespace DBMSCuoiKi
             // 
             // comboBox1
             // 
-            
-            var dict = new Dictionary<int, string>();
-            dict.Add(1, "Nhân Viên");
-            dict.Add(2, "Quản Lý");
-
-            this.comboBox1.DataSource = new BindingSource(dict, null);
-            this.comboBox1.DisplayMember = "Value";
-            this.comboBox1.ValueMember = "Key";
             this.comboBox1.AllowDrop = true;
+            this.comboBox1.DisplayMember = "Value";
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-
+            this.comboBox1.Items.AddRange(new object[] {
+            ((object)(resources.GetObject("comboBox1.Items"))),
+            ((object)(resources.GetObject("comboBox1.Items1")))});
             this.comboBox1.Location = new System.Drawing.Point(139, 70);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(314, 29);
             this.comboBox1.TabIndex = 16;
-
+            this.comboBox1.ValueMember = "Key";
             // 
             // btnXoa
             // 
@@ -338,6 +334,7 @@ namespace DBMSCuoiKi
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmTaiKhoan";
             this.Text = "frmTaiKhoan";
+            this.Load += new System.EventHandler(this.frmTaiKhoan_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTaiKhoan)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

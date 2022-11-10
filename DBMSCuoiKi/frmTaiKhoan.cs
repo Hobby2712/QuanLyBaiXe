@@ -265,5 +265,11 @@ namespace DBMSCuoiKi
                 conn.Close();
             }
         }
+
+
+        private void frmTaiKhoan_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
