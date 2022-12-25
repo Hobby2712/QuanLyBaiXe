@@ -7,8 +7,8 @@ CREATE TABLE dbo.ChucVu(
 	MaCV int PRIMARY KEY,
 	ChucVu nvarchar(50) Null
 )
-insert into ChucVu values(1,'Nhân viên');
-insert into ChucVu values(2,'Quản lý');
+insert into ChucVu values(1,N'Nhân viên');
+insert into ChucVu values(2,N'Quản lý');
 Go
 CREATE TABLE dbo.NhanVien(
 	MaNV INT IDENTITY(1,1) PRIMARY KEY,
@@ -22,18 +22,17 @@ CREATE TABLE dbo.NhanVien(
 	ChucVu int references ChucVu(MaCV)
 )
 Go
-insert into NhanVien values('Nguyễn Văn A','2000','So 1 Vo Van Ngan','Nam','0842020026712','0987261662','ngvana@gmail.com',1);
-insert into NhanVien values('Nguyễn Văn B','2002','So 2 Vo Van Ngan','Nam','0842020026711','0987261661','ngvanb@gmail.com',1);
+insert into NhanVien values(N'Nguyễn Văn A','2000',N'So 1 Vo Van Ngan',N'Nam','0842020026712','0987261662','ngvana@gmail.com',1);
+insert into NhanVien values(N'Nguyễn Văn B','2002',N'So 2 Vo Van Ngan',N'Nam','0842020026711','0987261661','ngvanb@gmail.com',1);
 insert into NhanVien values('Phan Gia huy','2001','So 2 Vo Van Ngan','Nam','0842020026711','0987261661','ngvanb@gmail.com',1);
 GO
 CREATE TABLE dbo.TaiKhoan(
 	MaTk INT IDENTITY(1,1) PRIMARY KEY,
-	Username nvarchar(30) not null unique,
-	MatKhau nvarchar(30) not null,
+	Username nvarchar(30) NULL,
+	MatKhau nvarchar(30) NULL,
 	MaNV int references NhanVien(MaNV) ON DELETE CASCADE ON UPDATE CASCADE,
 	Quyen int references ChucVu(MaCV) ON UPDATE CASCADE ON DELETE SET NULL
 )
-
 insert into TaiKhoan values('client','12345',1,1);
 insert into TaiKhoan values('admin','12345',1,2);
 GO
@@ -53,9 +52,10 @@ CREATE TABLE dbo.TinhTrang(
 	MaTT int PRIMARY KEY,
 	TinhTrang nvarchar(10) NULL
 )
-insert into TinhTrang values(1,'Đang giữ');
-insert into TinhTrang values(2,'Mất');
-insert into TinhTrang values(3,'Đã trả');
+insert into TinhTrang values(1,N'Đang giữ');
+insert into TinhTrang values(2,N'Mất');
+insert into TinhTrang values(3,N'Đã trả');
+insert into TinhTrang values(4,N'Hư hại');
 
 GO
 CREATE TABLE dbo.BangGia(
@@ -64,56 +64,57 @@ CREATE TABLE dbo.BangGia(
 	MaKV int references KhuVuc(MaKV)
 )
 go
-insert into BangGia values('Xe máy',3000,1);
-insert into BangGia values('Ô tô',15000,2);
-insert into BangGia values('Xe tải',20000,3);
-insert into BangGia values('Xe Container',30000,4);
+insert into BangGia values(N'Xe máy',3000,1);
+insert into BangGia values(N'Ô tô',15000,2);
+insert into BangGia values(N'Xe tải',20000,3);
+insert into BangGia values(N'Xe Container',30000,4);
 
 GO
 CREATE TABLE dbo.GiuXe(
 	MaGX INT IDENTITY(1,1) PRIMARY KEY,
 	MaNV int references NhanVien(MaNV),
-	NgayGiu date Null,
+	NgayVao datetime Null,
+	NgayRa datetime Null,
 	BienSoXe nvarchar(30) NULL,
 	LoaiXe int references KhuVuc(MaKV),
-	MaTT int references TinhTrang(MaTT)
+	MaTT int references TinhTrang(MaTT),
+	CONSTRAINT c_ngay CHECK(NgayRa>NgayVao),
 )
-insert into GiuXe values(1,'2022-10-10','49H1-27182',1,1);
-
------------Triggers
-Go
-Create trigger trg_GiuXe on GiuXe after insert as
-begin
-	update KhuVuc
-	set SoCho = SoCho - 1
-	From KhuVuc join GiuXe 
-	On KhuVuc.MaKV = GiuXe.LoaiXe
-	Where GiuXe.MaTT=1
-End
-
---
-Go
-Create trigger trg_TraXe on GiuXe after insert as
-begin
-	update KhuVuc
-	set SoCho = SoCho + 1
-	From KhuVuc join GiuXe 
-	On KhuVuc.MaKV = GiuXe.LoaiXe
-	Where GiuXe.MaTT=3
-End
+go
+insert into GiuXe values(1,'2022-10-10',null,'49H1-27182',1,1);
+insert into GiuXe values(2,'2022-10-10',null,'49H1-22182',1,1);
 
 ---------Views
 Go
 create view BangGia_View AS
-SELECT LoaiXe,Gia
-FROM BangGia;
---
-Go
-CREATE VIEW NhanVien_View AS
-SELECT MaNV,TenNV,DiaChi,Sdt,Email,ChucVu
-FROM NhanVien
-Where NhanVien.NamSinh > '2000'
+SELECT LoaiXe,Gia,SoCho
+FROM BangGia join KhuVuc
+on BangGia.MaKV = KhuVuc.MaKV;
 
+--
+go
+create view Home_View AS
+SELECT MaGX, NgayVao, BienSoXe, BangGia.LoaiXe, TinhTrang.TinhTrang
+FROM dbo.GiuXe join BangGia
+on GiuXe.LoaiXe = BangGia.MaKV
+join TinhTrang
+on GiuXe.MaTT = TinhTrang.MaTT
+Where GiuXe.MaTT = 1
+
+go
+create view XeHuMat_View AS
+SELECT MaGX, NgayVao, BienSoXe, BangGia.LoaiXe, TinhTrang.TinhTrang
+FROM GiuXe join BangGia
+on GiuXe.LoaiXe = BangGia.MaKV
+join TinhTrang
+on GiuXe.MaTT = TinhTrang.MaTT
+Where GiuXe.MaTT = 2 or GiuXe.MaTT = 4
+
+go
+create view BangGia_info AS
+SELECT LoaiXe, Gia, kv.TenKV , bg.MaKV
+FROM BangGia bg join KhuVuc kv
+on bg.MaKV = kv.MaKV
 
 ---------Functions
 Go
@@ -121,11 +122,14 @@ CREATE FUNCTION TinhTien (@MaGiuXe INT)
 RETURNS bigint AS
 BEGIN
    DECLARE @tien bigint;
-   SELECT @tien= datediff(DD,NgayGiu,getdate())*Gia FROM GiuXe join BangGia On BangGia.LoaiXe = GiuXe.LoaiXe WHERE MaGX=@MaGiuXe;
+   SELECT @tien= (datediff(DD,NgayVao,getdate())+1)*BangGia.Gia FROM GiuXe 
+   join BangGia On BangGia.MaKV = GiuXe.LoaiXe 
+   WHERE MaGX=@MaGiuXe;
    RETURN @tien;
 END
 
-ALTER FUNCTION XemTaiKhoan (@Username nvarchar(30))
+go
+CREATE FUNCTION XemTaiKhoan (@Username nvarchar(30))
 RETURNS TABLE AS
 	return 
 		(SELECT 
@@ -143,26 +147,57 @@ RETURNS TABLE AS
 		on dbo.TaiKhoan.MaNV = dbo.NhanVien.MaNV Inner join dbo.ChucVu 
 		on dbo.NhanVien.ChucVu = dbo.ChucVu.MaCV
 		WHERE @Username = '' or dbo.TaiKhoan.Username = @Username)
+go
 
+CREATE FUNCTION getMaNhanVien (@Username nvarchar(30))
+RETURNS int AS
+	BEGIN
+		DECLARE @maNV int;
+		SELECT @maNV = NhanVien.MaNV from NhanVien join TaiKhoan on NhanVien.MaNV = TaiKhoan.MaNV where TaiKhoan.Username = @Username;
+		RETURN @maNV;
+	END
 ----------Procedures
-----Update
-GO
+go
+Create procedure sp_PhanQuyenUser
+        @login nvarchar(30),
+        @pass nvarchar(30)
+as
+declare @sql nvarchar(max)
+set @sql = 'use QLBaiXe;' +
+           'create login ' + @login + 
+               ' with password = ''' + @pass + '''; ' +
+           'create user '+ + @login + ' from login ' + @login + ';'
+		   +'Grant select,insert,update on GiuXe to '+@login+';'
+		   +'Grant select on BangGia to '+@login+';'
+		   +'Grant select on NhanVien to '+@login+';'
+		   +'Grant exec on sp_addGiuXe to '+ @login+';'
+		   +'Grant exec on sp_updateRaBaiXe to '+ @login+';'
+		   +'Grant exec on sp_updateMatXe to '+ @login+';'
+		   +'Grant exec on sp_updateHuXe to '+ @login+';'
+		   +'Grant exec on TinhTien to '+ @login+';'
+		   +'Grant select on Home_View to '+ @login+';'
+		   +'Grant select on BangGia_View to '+ @login+';'
+exec (@sql)
 
-CREATE PROCEDURE sp_updateNhanVien
-@name NVARCHAR(50), @birth char(4), @address nvarchar(500), @gender nvarchar(4), @nationid nvarchar(15), @phone nvarchar(12), @email nvarchar(100),  @level int, @id INT
-AS
-BEGIN 
-    UPDATE dbo.NhanVien SET 
-    TenNV=@name, 
-    NamSinh=@birth,
-	DiaChi=@address,
-	GioiTinh=@gender,
-	CMND=@nationid,
-	Sdt=@phone,
-	Email=@email,
-	ChucVu=@level
-    WHERE MaNV=@id
-END
+go
+Create procedure sp_XoaUser
+        @login nvarchar(30)
+as
+declare @sql nvarchar(max)
+set @sql = 'use QLBaiXe;' +
+           +'drop user ' + @login + '; '
+		   +'drop login ' + @login + '; '
+
+exec (@sql)
+
+---TaiKhoan
+go
+create proc sp_addAccount
+@Username nvarchar(30), @Password nvarchar(30), @MaNV int, @Quyen int
+as
+	BEGIN
+		INSERT INTO dbo.TaiKhoan(Username,MatKhau,MaNV,Quyen) values (@Username,@Password,@MaNV,@Quyen)
+	END
 
 go
 create proc sp_updateAccount(@Username nvarchar(30), @Password nvarchar(30), @Quyen int)
@@ -179,12 +214,21 @@ as
 			WHERE Username = @Username
 	end
 
+go
 create proc sp_deleteAccount(@Username nvarchar(30))
 as 
 	begin
 		delete from dbo.TaiKhoan where Username = @Username
 	end
 
+
+----Bang Gia
+go
+create proc sp_addBangGia(@LoaiXe nvarchar(20),@Gia bigint,@MaKV int)
+as
+	begin
+		INSERT INTO BangGia(LoaiXe,Gia,MaKV) values (@LoaiXe,@Gia,@MaKV)
+	end;
 
 go
 create proc sp_updateBangGia(@LoaiXe nvarchar(20), @Gia bigint, @MaKV int)
@@ -196,31 +240,96 @@ as
 		WHERE LoaiXe = @LoaiXe
 	END
 
-----Add
 go
-create proc sp_addNhanVien(
-@name NVARCHAR(50),
-@birth char(4),
-@address nvarchar(500),
-@gender nvarchar(4),
-@nationid nvarchar(15),
-@phone nvarchar(12),
-@email nvarchar(100),
-@level int,
-@id int
+create proc sp_deleteBangGia(@LoaiXe nvarchar(20))
+as
+     begin
+              DELETE FROM BangGia WHERE LoaiXe = @LoaiXe
+     end;
+----Nhan Vien
+GO
+create proc [dbo].[sp_addNhanVien](
+@TenNV NVARCHAR(50),
+@NamSinh char(4),
+@DiaChi nvarchar(500),
+@GioiTinh nvarchar(4),
+@CMND nvarchar(15),
+@Sdt nvarchar(12),
+@Email nvarchar(100),
+@ChucVu int
 )
 as
 	BEGIN
-		INSERT INTO dbo.NhanVien(MaNV,TenNV,NamSinh,DiaChi,GioiTinh,CMND,Sdt,Email,ChucVu) values(@id,@name,@birth,@address,@gender,@nationid,@phone,@email,@level)
+		INSERT INTO dbo.NhanVien(TenNV,NamSinh,DiaChi,GioiTinh,CMND,Sdt,Email,ChucVu) values(@TenNV,@NamSinh,@DiaChi,@GioiTinh,@CMND,@Sdt,@Email,@ChucVu)
+	END
+
+GO
+create proc [dbo].[sp_updateNhanVien](
+@MaNV int,
+@TenNV NVARCHAR(50),
+@NamSinh char(4),
+@DiaChi nvarchar(500),
+@GioiTinh nvarchar(4),
+@CMND nvarchar(15),
+@Sdt nvarchar(12),
+@Email nvarchar(100),
+@ChucVu int
+)
+as
+	BEGIN 
+    UPDATE dbo.NhanVien SET 
+    TenNV=@TenNV,
+    NamSinh=@NamSinh,
+	DiaChi=@DiaChi,
+	GioiTinh=@GioiTinh,
+	CMND=@CMND,
+	Sdt=@Sdt,
+	Email=@Email,
+	ChucVu=@ChucVu
+    WHERE MaNV=@MaNV 
+END
+
+
+
+go
+create proc sp_addGiuXe
+@MaNV int, @BienSoXe nvarchar(30), @LoaiXe int
+as
+	BEGIN
+		INSERT INTO dbo.GiuXe(MaNV,NgayVao,NgayRa,BienSoXe,LoaiXe,MaTT) values (@MaNV, getdate(), null, @BienSoXe, @LoaiXe, 1)
 	END
 
 go
-create proc sp_addAccount(@Username nvarchar(30), @Password nvarchar(30), @MaNV int, @Quyen int)
+create proc sp_updateRaBaiXe
+@MaGX int
 as
 	BEGIN
-		INSERT INTO dbo.TaiKhoan(Username,MatKhau,MaNV,Quyen) values (@Username,@Password,@MaNV,@Quyen)
+		update GiuXe
+		set MaTT = 3,
+		NgayRa=getdate()
+		where MaGX = @MaGX
 	END
 
+go
+create proc sp_updateMatXe
+@MaGX int
+as
+	BEGIN
+		update GiuXe
+		set MaTT = 2
+		where MaGX = @MaGX
+	END
+go
+
+create proc sp_updateHuXe
+@MaGX int
+as
+	BEGIN
+		update GiuXe
+		set MaTT = 4
+		where MaGX = @MaGX
+	END
+go
 
 ----Login
 GO
@@ -241,3 +350,50 @@ begin
 	else select 3 as code
 end
 
+
+-----------Triggers
+go
+Create trigger trg_GiuXe on GiuXe after insert as
+begin
+	update KhuVuc
+	set SoCho = SoCho - 1
+	From KhuVuc join inserted i  
+	On KhuVuc.MaKV = i.LoaiXe
+End
+
+--
+Go
+Create trigger trg_TraXe on GiuXe after update as
+begin
+	update KhuVuc
+	set SoCho = SoCho + 1
+	From KhuVuc join inserted i
+	On KhuVuc.MaKV = i.LoaiXe
+End
+
+Go
+Create trigger trg_PhanQuyen on TaiKhoan after insert as
+declare @Username nvarchar(30), @MatKhau nvarchar(30), @Quyen int
+select @Username = Username from inserted
+select @MatKhau = MatKhau from inserted
+select @Quyen = Quyen from inserted
+begin
+	if @Quyen = 1
+	begin
+		exec sp_PhanQuyenUser @Username,@MatKhau
+	end
+End
+
+Go
+Create trigger trg_XoaUser on TaiKhoan after delete, update as
+declare @Username nvarchar(30), @Quyen int
+select @Username = Username from inserted
+select @Quyen = Quyen from inserted
+begin
+	if @Quyen = 1
+	begin
+		exec sp_XoaUser @Username
+	end
+End
+go
+insert into TaiKhoan values('duong','12345',1,1);
